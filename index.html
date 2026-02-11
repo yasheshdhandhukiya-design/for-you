@@ -15,23 +15,21 @@
             background-color: #ffebee;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
-            text-align: center;
         }
 
         .container {
-            z-index: 1;
+            text-align: center;
         }
 
         h1 {
             color: #d32f2f;
-            font-size: 2.5rem;
-            margin: 20px 0;
+            font-size: 3rem;
         }
 
         .gif-container img {
             width: 250px;
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
         }
 
         .buttons {
@@ -39,8 +37,7 @@
             gap: 20px;
             justify-content: center;
             align-items: center;
-            margin-top: 30px;
-            height: 100px;
+            margin-top: 20px;
         }
 
         button {
@@ -49,35 +46,25 @@
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: transform 0.2s;
         }
 
         #yesBtn {
             background-color: #4caf50;
             color: white;
-            z-index: 999; /* Keeps Yes button on top */
         }
 
         #noBtn {
             background-color: #f44336;
             color: white;
             position: absolute;
-            z-index: 998;
         }
 
-        #success {
+        .success-message {
             display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #success h1 {
             color: #d32f2f;
-            font-size: 3.5rem;
-            font-weight: bold;
+            font-size: 2.5rem;
             animation: heartBeat 1s infinite;
-            margin-top: 20px;
         }
 
         @keyframes heartBeat {
@@ -91,9 +78,9 @@
 
     <div class="container" id="mainContainer">
         <div class="gif-container">
-            <img id="headerGif" src="https://media.tenor.com/gU_q9f68VQsAAAAM/milk-and-mocha.gif" alt="Cute Bears">
-        </div>
-        <h1 id="mainQuestion">Will you be my Valentine? ❤️</h1>
+    <img src="https://media.tenor.com/gU_q9f68VQsAAAAM/milk-and-mocha.gif" alt="Cute Valentine">
+</div>
+        <h1 id="question">Will you be my Valentine? ❤️</h1>
         
         <div class="buttons">
             <button id="yesBtn">Yes</button>
@@ -101,43 +88,31 @@
         </div>
     </div>
 
-    <div id="success">
-        <img src="https://media.tenor.com/Z86v_aH9630AAAAM/bubu-dudu-bubu.gif" alt="Happy Hug" style="width: 250px; border-radius: 15px;">
-        <h1>I LOVE YOU REET</h1>
+    <div class="success-message" id="successMessage">
+        Yay! See you on the 14th! 🥰
     </div>
 
     <script>
         const noBtn = document.getElementById('noBtn');
         const yesBtn = document.getElementById('yesBtn');
         const mainContainer = document.getElementById('mainContainer');
-        const successDiv = document.getElementById('success');
+        const successMessage = document.getElementById('successMessage');
+        const statusGif = document.getElementById('statusGif');
 
-        let yesScale = 1;
-        let paddingVertical = 15;
-        let paddingHorizontal = 30;
-
-        // "No" button escapes and makes "Yes" grow
+        // The "Runaway" logic for the No button
         noBtn.addEventListener('mouseover', () => {
-            // Move No Button
             const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
             const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            
             noBtn.style.left = `${x}px`;
             noBtn.style.top = `${y}px`;
-
-            // Make Yes Button Bigger
-            yesScale += 0.3;
-            paddingVertical += 5;
-            paddingHorizontal += 10;
-            
-            yesBtn.style.transform = `scale(${yesScale})`;
-            yesBtn.style.padding = `${paddingVertical}px ${paddingHorizontal}px`;
         });
 
-        // "Yes" button click action
+        // The "Yes" logic
         yesBtn.addEventListener('click', () => {
             mainContainer.style.display = 'none';
-            noBtn.style.display = 'none';
-            successDiv.style.display = 'flex';
+            successMessage.style.display = 'block';
+            // Optional: Change background to confetti or more hearts
             document.body.style.backgroundColor = "#ffcdd2";
         });
     </script>
